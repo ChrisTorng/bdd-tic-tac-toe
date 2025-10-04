@@ -1,6 +1,6 @@
 # BDD Tic Tac Toe
 
-以行為驅動開發（BDD）打造的井字遊戲網站，採用中文 Gherkin 規格並以自製的極簡 Cucumber runner 驗證互動流程。網站可部署至 GitHub Pages，提供即時體驗。
+以行為驅動開發（BDD）打造的井字遊戲網站，採用中文 Gherkin 規格並以自製的極簡 Cucumber runner 驗證互動流程。網站已設定以 Vercel 佈署，可在 <https://bdd-tic-tac-toe.vercel.app/> 即時體驗。
 
 ## 功能總覽
 
@@ -8,7 +8,7 @@
 - ♻️ 支援 X/O 輪流下子、違規提示、勝利/平手判定與遊戲重設。
 - 🧠 記錄最近 5 場對局結果（勝負、步數、完成時間），可於模態窗檢視。
 - 🧪 以 Node.js 實作的輕量 BDD runner，自動解析 Gherkin 並執行步驟定義驗證核心邏輯。
-- 🚀 透過 GitHub Actions 自動化測試並佈署到 <https://christorng.github.io/bdd-tic-tac-toe/>。
+- 🚀 透過 GitHub Actions 搭配 Vercel 自動化測試並佈署到 <https://bdd-tic-tac-toe.vercel.app/>。
 
 ## 環境需求
 
@@ -66,10 +66,18 @@ scripts/
 
 1. 安裝依賴並執行 BDD 測試。
 2. 產生最新的 `dist/` 靜態檔案。
-3. 透過 GitHub Pages 自動發佈至 <https://christorng.github.io/bdd-tic-tac-toe/>。
+3. 透過 Vercel CLI 將成果部署至 <https://bdd-tic-tac-toe.vercel.app/>。
+
+使用前請於 GitHub 專案設定下列 Secrets：
+
+- `VERCEL_TOKEN`
+- `VERCEL_ORG_ID`
+- `VERCEL_PROJECT_ID`
+
+若需預覽環境，可於 workflow dispatch 時傳入 `preview: true`，部署將改為 Preview。
 
 另有 `.github/workflows/ci.yml` 於 PR 與推送時執行測試，確保規格持續通過。
 
 ## 授權
 
-[MIT License](./LICENSE)
+本專案使用 MIT 授權（詳見 [LICENSE](./LICENSE)）。
