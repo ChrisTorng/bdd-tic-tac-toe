@@ -1,0 +1,17 @@
+{
+  "name": "bdd-tic-tac-toe",
+  "version": "1.0.0",
+  "description": "BDD-developed Tic Tac Toe web app with Cucumber tests",
+  "main": "index.js",
+  "scripts": {
+    "test": "cucumber-js",
+    "build": "node scripts/build.mjs"
+  },
+  "author": "ChrisTorng",
+  "license": "MIT",
+  "devDependencies": {
+    "@cucumber/cucumber": "^10.2.1",
+    "chai": "^4.3.10",
+    "jsdom": "^24.0.0"
+  }
+}

@@ -1,0 +1,246 @@
+:root {
+  --bg: #f5f5f5;
+  --primary: #2563eb;
+  --secondary: #334155;
+  --error: #dc2626;
+  --win: #facc15;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --text: #1f2937;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header,
+.app-footer {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.app-footer {
+  border-bottom: none;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+
+.app-subtitle {
+  margin: 0.25rem 0 0;
+  color: var(--secondary);
+}
+
+.app-main {
+  width: min(480px, 90vw);
+  margin: 2rem auto;
+  background: var(--surface);
+  border-radius: 1rem;
+  padding: 2rem 1.5rem;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.1);
+}
+
+.status-panel {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.status-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+
+.result-text {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--secondary);
+  margin: 0.25rem 0;
+  min-height: 1.5rem;
+}
+
+.error-text {
+  color: var(--error);
+  min-height: 1.5rem;
+  margin: 0.25rem 0;
+}
+
+.board {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.cell {
+  width: 100%;
+  aspect-ratio: 1;
+  font-size: 2.5rem;
+  font-weight: 700;
+  border: 2px solid var(--border);
+  border-radius: 0.75rem;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.cell:hover:not(:disabled) {
+  background: rgba(37, 99, 235, 0.1);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.cell:disabled {
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
+.cell.win {
+  background: var(--win);
+  border-color: #d97706;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+button.primary,
+button.secondary,
+button.ghost {
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.75rem;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button.primary {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
+}
+
+button.secondary {
+  background: var(--secondary);
+  color: #fff;
+  box-shadow: 0 10px 20px rgba(51, 65, 85, 0.25);
+}
+
+button.ghost {
+  background: transparent;
+  color: var(--secondary);
+  box-shadow: none;
+}
+
+button.primary:hover,
+button.secondary:hover,
+button.ghost:hover {
+  transform: translateY(-2px);
+}
+
+button.primary:active,
+button.secondary:active,
+button.ghost:active {
+  transform: translateY(0);
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 100;
+}
+
+.modal[data-visible="true"] {
+  display: flex;
+}
+
+.modal__content {
+  background: var(--surface);
+  border-radius: 1rem;
+  width: min(420px, 90vw);
+  padding: 1.5rem;
+  box-shadow: 0 25px 50px rgba(15, 23, 42, 0.2);
+}
+
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.modal__body {
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.history-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.history-item {
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  background: rgba(148, 163, 184, 0.1);
+}
+
+.history-item__title {
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+}
+
+.history-item__meta {
+  margin: 0;
+  color: var(--secondary);
+  font-size: 0.95rem;
+}
+
+.app-footer a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+@media (max-width: 480px) {
+  .app-main {
+    padding: 1.5rem 1rem;
+  }
+
+  .controls {
+    flex-direction: column;
+  }
+
+  button.primary,
+  button.secondary {
+    width: 100%;
+  }
+}

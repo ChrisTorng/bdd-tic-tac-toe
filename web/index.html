@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>井字遊戲</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>井字遊戲</h1>
+      <p class="app-subtitle">使用瀏覽器與朋友進行即時對戰</p>
+    </header>
+
+    <main class="app-main">
+      <section class="status-panel" aria-live="polite">
+        <p data-status class="status-text">輪到 X</p>
+        <p data-message class="result-text" aria-live="polite"></p>
+        <p data-error class="error-text" role="alert"></p>
+      </section>
+
+      <section class="board" data-board aria-label="井字棋盤" role="application">
+        <div class="row">
+          <button class="cell" data-cell data-row="1" data-col="1" data-index="0" aria-label="第 1 列第 1 行"></button>
+          <button class="cell" data-cell data-row="1" data-col="2" data-index="1" aria-label="第 1 列第 2 行"></button>
+          <button class="cell" data-cell data-row="1" data-col="3" data-index="2" aria-label="第 1 列第 3 行"></button>
+        </div>
+        <div class="row">
+          <button class="cell" data-cell data-row="2" data-col="1" data-index="3" aria-label="第 2 列第 1 行"></button>
+          <button class="cell" data-cell data-row="2" data-col="2" data-index="4" aria-label="第 2 列第 2 行"></button>
+          <button class="cell" data-cell data-row="2" data-col="3" data-index="5" aria-label="第 2 列第 3 行"></button>
+        </div>
+        <div class="row">
+          <button class="cell" data-cell data-row="3" data-col="1" data-index="6" aria-label="第 3 列第 1 行"></button>
+          <button class="cell" data-cell data-row="3" data-col="2" data-index="7" aria-label="第 3 列第 2 行"></button>
+          <button class="cell" data-cell data-row="3" data-col="3" data-index="8" aria-label="第 3 列第 3 行"></button>
+        </div>
+      </section>
+
+      <section class="controls">
+        <button type="button" class="primary" data-reset>重設遊戲</button>
+        <button type="button" class="secondary" data-history>查看紀錄</button>
+      </section>
+    </main>
+
+    <div class="modal" data-modal aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="history-title">
+      <div class="modal__content">
+        <div class="modal__header">
+          <h2 id="history-title">最近 5 場對局紀錄</h2>
+          <button type="button" class="ghost" data-close-history aria-label="關閉紀錄">關閉</button>
+        </div>
+        <div class="modal__body">
+          <p data-history-empty class="history-empty" hidden>目前沒有對局紀錄</p>
+          <ul data-history-list class="history-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <footer class="app-footer">
+      <p>在 GitHub Pages 上發佈 · <a href="https://christorng.github.io/bdd-tic-tac-toe/" target="_blank" rel="noopener">線上體驗</a></p>
+    </footer>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
