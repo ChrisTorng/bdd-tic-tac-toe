@@ -5,6 +5,9 @@ const ORDINAL_MAP = {
   第一: 1,
   第二: 2,
   第三: 3,
+  一: 1,
+  二: 2,
+  三: 3,
 };
 
 function parseOrdinal(value) {
@@ -77,7 +80,13 @@ When(/我點擊第([一二三\d]+)列第([一二三\d]+)格/, async function (ro
   await this.clickCell(row, col);
 });
 
-Then(/該格應該顯示 {string}/, function (value) {
+Then('該格應該顯示 {string}', function (value) {
+  const target = this.lastClickedCell || { row: 1, col: 1 };
+  const cell = this.getCellByRowCol(target.row, target.col);
+  expect(cell.textContent.trim()).to.equal(value);
+});
+
+Then('該格應顯示 {string}', function (value) {
   const target = this.lastClickedCell || { row: 1, col: 1 };
   const cell = this.getCellByRowCol(target.row, target.col);
   expect(cell.textContent.trim()).to.equal(value);
@@ -100,6 +109,12 @@ Given('第一列第一格已經顯示 {string}', async function (value) {
   await this.clickCell(1, 1);
   const cell = this.getCellByRowCol(1, 1);
   expect(cell.textContent.trim()).to.equal(value);
+});
+
+When(/我再次點擊第([一二三\d]+)列第([一二三\d]+)格/, async function (rowText, colText) {
+  const row = parseOrdinal(rowText);
+  const col = parseOrdinal(colText);
+  await this.clickCell(row, col);
 });
 
 Then('該格內容應保持為 {string}', function (expected) {
@@ -150,6 +165,14 @@ Then('勝利線上的格子應該被高亮顯示', function () {
   highlighted.forEach((cell) => {
     expect(['X', 'O']).to.include(cell.textContent.trim());
   });
+});
+
+Then('狀態顯示應該改為 {string}', function (expected) {
+  expect(this.getStatusText()).to.equal(expected);
+});
+
+Then('狀態顯示應改為 {string}', function (expected) {
+  expect(this.getStatusText()).to.equal(expected);
 });
 
 Then('棋盤上其他空格應停止回應點擊', async function () {

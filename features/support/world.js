@@ -11,10 +11,27 @@ class TicTacToeWorld {
   }
 
   async openApp() {
-    const filePath = path.join(__dirname, '..', '..', 'web', 'index.html');
-    this.dom = await JSDOM.fromFile(filePath, {
+    const fs = require('node:fs');
+    const htmlPath = path.join(__dirname, '..', '..', 'web', 'index.html');
+    const cssPath = path.join(__dirname, '..', '..', 'web', 'styles.css');
+    const jsPath = path.join(__dirname, '..', '..', 'web', 'app.js');
+    
+    let htmlContent = fs.readFileSync(htmlPath, 'utf-8');
+    const cssContent = fs.readFileSync(cssPath, 'utf-8');
+    const jsContent = fs.readFileSync(jsPath, 'utf-8');
+    
+    // 內聯 CSS 和 JS
+    htmlContent = htmlContent.replace(
+      '<link rel="stylesheet" href="./styles.css" />',
+      `<style>${cssContent}</style>`
+    );
+    htmlContent = htmlContent.replace(
+      '<script src="./app.js"></script>',
+      `<script>${jsContent}</script>`
+    );
+
+    this.dom = new JSDOM(htmlContent, {
       runScripts: 'dangerously',
-      resources: 'usable',
       url: 'https://example.org/',
       pretendToBeVisual: true,
     });
@@ -22,13 +39,7 @@ class TicTacToeWorld {
     this.window = this.dom.window;
     this.document = this.window.document;
 
-    await new Promise((resolve) => {
-      if (this.document.readyState === 'complete') {
-        resolve();
-        return;
-      }
-      this.window.addEventListener('load', () => resolve());
-    });
+    await new Promise((resolve) => setTimeout(resolve, 100));
 
     this.window.localStorage.clear();
     if (this.window.ticTacToeTestHook) {

@@ -5,6 +5,6 @@ module.exports = {
       'features/step_definitions/**/*.js'
     ],
     publishQuiet: true,
-    language: 'zh-CN'
+    language: 'zh-TW'
   }
 };

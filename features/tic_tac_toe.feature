@@ -1,4 +1,4 @@
-# language: zh-CN
+# language: zh-TW
 功能: 井字遊戲網站
   為了讓兩位玩家在瀏覽器中對戰
   身為訪客
