@@ -49,6 +49,72 @@ h1 {
   font-weight: 500;
 }
 
+.settings {
+  display: grid;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  text-align: left;
+}
+
+.settings__group {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  display: grid;
+  gap: 0.5rem;
+  background: rgba(52, 120, 246, 0.05);
+}
+
+.settings__group legend {
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0 0.5rem;
+}
+
+.settings__group--inline {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.option input[type='radio'] {
+  accent-color: var(--accent);
+}
+
+.option.disabled {
+  opacity: 0.5;
+}
+
+.settings__group select {
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0.4rem 0.75rem;
+  font: inherit;
+  background: white;
+  color: inherit;
+}
+
+.settings__group select:disabled {
+  opacity: 0.6;
+  background: #f1f3f4;
+}
+
+.settings__hint {
+  margin: -0.5rem 0 0;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.settings__hint.hidden {
+  display: none;
+}
+
 .board {
   display: grid;
   gap: 0.75rem;
@@ -170,6 +236,10 @@ button {
 @media (max-width: 480px) {
   .app {
     padding: 1.5rem;
+  }
+
+  .settings {
+    margin: 1.25rem 0;
   }
 
   .cell {

@@ -8,6 +8,10 @@ const historyButton = document.querySelector('#history-button');
 const historyModal = document.querySelector('#history-modal');
 const historyList = document.querySelector('#history-list');
 const closeHistoryButton = document.querySelector('#close-history');
+const opponentRadios = Array.from(document.querySelectorAll('input[name="opponent-mode"]'));
+const firstPlayerRadios = Array.from(document.querySelectorAll('input[name="first-player"]'));
+const difficultySelect = document.querySelector('#difficulty-select');
+const difficultyHint = document.querySelector('[data-testid="difficulty-hint"]');
 
 const core = new GameCore({ storage: window.localStorage });
 
@@ -31,6 +35,7 @@ function renderMessage() {
 
 function renderBoard() {
   const winning = new Set(core.getWinningCells());
+  const disableCells = !core.isPlayerTurn();
   cellElements.forEach((cell) => {
     const [row, col] = selectorToTuple(cell.dataset.cell);
     const value = core.getCell(row, col);
@@ -40,7 +45,7 @@ function renderBoard() {
     } else {
       cell.classList.remove('win');
     }
-    if (core.isGameActive()) {
+    if (core.isGameActive() && !disableCells && !value) {
       cell.classList.remove('disabled');
       cell.disabled = false;
     } else {
@@ -90,10 +95,32 @@ function closeHistoryModal() {
   historyButton.focus();
 }
 
+function renderControls() {
+  const opponentMode = core.getOpponentMode();
+  opponentRadios.forEach((radio) => {
+    radio.checked = radio.value === opponentMode;
+  });
+
+  const firstPlayer = core.getFirstPlayer();
+  const firstPlayerDisabled = opponentMode !== 'computer';
+  firstPlayerRadios.forEach((radio) => {
+    radio.checked = radio.value === firstPlayer;
+    radio.disabled = firstPlayerDisabled;
+    radio.parentElement.classList.toggle('disabled', radio.disabled);
+  });
+
+  const difficulty = core.getDifficulty();
+  difficultySelect.value = difficulty;
+  difficultySelect.disabled = !core.isDifficultyEnabled();
+  difficultyHint.textContent = core.getDifficultyHint();
+  difficultyHint.classList.toggle('hidden', !core.isDifficultyEnabled());
+}
+
 function render() {
   renderStatus();
   renderMessage();
   renderBoard();
+  renderControls();
 }
 
 function handleCellClick(event) {
@@ -105,6 +132,21 @@ function handleCellClick(event) {
 
 function handleReset() {
   core.resetGame();
+  render();
+}
+
+function handleOpponentChange(event) {
+  core.setOpponentMode(event.target.value);
+  render();
+}
+
+function handleFirstPlayerChange(event) {
+  core.setFirstPlayer(event.target.value);
+  render();
+}
+
+function handleDifficultyChange(event) {
+  core.setDifficulty(event.target.value);
   render();
 }
 
@@ -125,6 +167,13 @@ function attachListeners() {
       closeHistoryModal();
     }
   });
+  opponentRadios.forEach((radio) => {
+    radio.addEventListener('change', handleOpponentChange);
+  });
+  firstPlayerRadios.forEach((radio) => {
+    radio.addEventListener('change', handleFirstPlayerChange);
+  });
+  difficultySelect.addEventListener('change', handleDifficultyChange);
 }
 
 function boot() {
@@ -137,8 +186,8 @@ boot();
 if (typeof window !== 'undefined') {
   window.__test__ = {
     core,
-    setBoardState(rows, player) {
-      core.setBoardState(rows, player);
+    setBoardState(rows, status) {
+      core.setBoardState(rows, status);
       render();
     },
     setDrawState(pattern) {

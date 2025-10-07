@@ -22,6 +22,8 @@ export function parseFeature(source) {
       scenarios.push(currentScenario);
       currentScenario = null;
     }
+    readingExamples = false;
+    exampleHeaders = null;
   };
 
   for (const rawLine of lines) {

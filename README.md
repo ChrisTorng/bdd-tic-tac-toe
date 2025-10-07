@@ -7,6 +7,7 @@
 - 🎯 完整遵循 `features/tic_tac_toe.feature` 規格中的互動情境。
 - ♻️ 支援 X/O 輪流下子、違規提示、勝利/平手判定與遊戲重設。
 - 🧠 記錄最近 5 場對局結果（勝負、步數、完成時間），可於模態窗檢視。
+- 🤖 內建人機對戰模式，可選擇玩家或電腦先手，並提供「簡單（隨機）」、「中等（防守優先）」與「困難（最佳策略）」三種難度。
 - 🧪 以 Node.js 實作的輕量 BDD runner，自動解析 Gherkin 並執行步驟定義驗證核心邏輯。
 - 🚀 透過 GitHub Actions 搭配 Vercel 自動化測試並佈署到 <https://bdd-tic-tac-toe.vercel.app/>。
 
