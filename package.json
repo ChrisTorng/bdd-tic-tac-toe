@@ -1,0 +1,18 @@
+{
+  "name": "bdd-tic-tac-toe",
+  "version": "1.0.0",
+  "description": "Tic Tac Toe web app driven by BDD specifications",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "test:bdd": "node scripts/run-bdd.js",
+    "serve": "npm run build && node scripts/serve.js"
+  },
+  "keywords": [
+    "tic-tac-toe",
+    "bdd",
+    "gherkin"
+  ],
+  "author": "Chris Torng",
+  "license": "MIT"
+}

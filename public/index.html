@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>井字遊戲</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app" aria-labelledby="game-title">
+      <h1 id="game-title">井字遊戲</h1>
+      <p class="status" data-testid="status" aria-live="polite">輪到 X</p>
+      <p class="message" data-testid="message" aria-live="polite"></p>
+      <section class="settings" aria-label="遊戲設定">
+        <fieldset class="settings-group">
+          <legend>對手模式</legend>
+          <label class="option">
+            <input type="radio" name="opponent-mode" value="human" checked />
+            雙人對戰
+          </label>
+          <label class="option">
+            <input type="radio" name="opponent-mode" value="computer" />
+            與電腦對戰
+          </label>
+        </fieldset>
+        <fieldset class="settings-group">
+          <legend>先手選擇</legend>
+          <label class="option">
+            <input type="radio" name="first-player" value="player" checked />
+            玩家先手
+          </label>
+          <label class="option">
+            <input type="radio" name="first-player" value="computer" />
+            電腦先手
+          </label>
+        </fieldset>
+        <fieldset class="settings-group">
+          <legend>電腦難度</legend>
+          <div class="select-wrapper">
+            <select id="difficulty-select" disabled>
+              <option value="easy">簡單</option>
+              <option value="medium">中等</option>
+              <option value="hard">困難</option>
+            </select>
+          </div>
+          <p class="difficulty-hint" data-testid="difficulty-hint">
+            簡單：隨機落子、中等：優先防守、困難：最佳策略
+          </p>
+        </fieldset>
+      </section>
+      <div class="board" role="grid" aria-label="井字遊戲棋盤">
+        <div class="board-row" role="row">
+          <button class="cell" role="gridcell" data-cell="1-1" aria-rowindex="1" aria-colindex="1"></button>
+          <button class="cell" role="gridcell" data-cell="1-2" aria-rowindex="1" aria-colindex="2"></button>
+          <button class="cell" role="gridcell" data-cell="1-3" aria-rowindex="1" aria-colindex="3"></button>
+        </div>
+        <div class="board-row" role="row">
+          <button class="cell" role="gridcell" data-cell="2-1" aria-rowindex="2" aria-colindex="1"></button>
+          <button class="cell" role="gridcell" data-cell="2-2" aria-rowindex="2" aria-colindex="2"></button>
+          <button class="cell" role="gridcell" data-cell="2-3" aria-rowindex="2" aria-colindex="3"></button>
+        </div>
+        <div class="board-row" role="row">
+          <button class="cell" role="gridcell" data-cell="3-1" aria-rowindex="3" aria-colindex="1"></button>
+          <button class="cell" role="gridcell" data-cell="3-2" aria-rowindex="3" aria-colindex="2"></button>
+          <button class="cell" role="gridcell" data-cell="3-3" aria-rowindex="3" aria-colindex="3"></button>
+        </div>
+      </div>
+      <div class="controls">
+        <button id="reset-button" type="button">重設遊戲</button>
+        <button id="history-button" type="button">查看紀錄</button>
+      </div>
+    </main>
+
+    <div
+      id="history-modal"
+      class="modal hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="history-title"
+    >
+      <div class="modal__content">
+        <h2 id="history-title">最近對局紀錄</h2>
+        <ul id="history-list" class="history-list" aria-live="polite"></ul>
+        <button id="close-history" type="button">關閉</button>
+      </div>
+    </div>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>
